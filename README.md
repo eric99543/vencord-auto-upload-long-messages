@@ -88,6 +88,84 @@ This plugin patches Discord internals. A successful Vencord build does not guara
 
 ## 繁體中文
 
-當訊息超過 Discord 字數限制時，這個插件會自動選擇 Discord 原生的 `message.txt` 上傳方式。它不會直接呼叫 Discord API，也不會連線到外部服務。
+AutoUploadLongMessages 是一個精簡的 Vencord 使用者插件。當訊息超過 Discord 字數限制時，它會自動選擇 Discord 原生的 `message.txt` 上傳流程。
 
-下載 Release 中的 ZIP，解壓到 `Vencord/src/userplugins` 後重新建置；Windows 使用者也可以下載 `Install.ps1` 自動完成安裝。
+插件不會透過 Discord API 直接傳送訊息，而是操作 Discord 原本就會顯示的上傳選項。
+
+> [!IMPORTANT]
+> 這是供自行編譯 Vencord 使用的非官方插件，並非由 Vencord 專案維護或提供支援。Discord 更新可能改變內部程式碼並使 patch 暫時失效。
+
+### 功能
+
+- 自動選擇 Discord 原生的文字檔上傳選項。
+- 使用目前頻道與 Discord 現有的上傳介面。
+- 不向外部服務發出網路請求。
+- 沒有額外設定或背景服務。
+- 準備上傳時會避免重複觸發。
+
+### 預覽
+
+![AutoUploadLongMessages 操作流程預覽](docs/images/oversized-message-flow.png)
+
+插件只會在 Discord 的超長訊息對話框出現時執行，沒有常駐操作介面。上圖為不含私人資料的功能示意；實際文字可能因 Discord 用戶端版本而異。
+
+### 安裝
+
+#### 下載插件 ZIP
+
+1. 下載 [`autoUploadLongMessages.zip`](https://github.com/eric99543/vencord-auto-upload-long-messages/releases/latest/download/autoUploadLongMessages.zip)。
+2. 將 ZIP 解壓到 `<Vencord>/src/userplugins/`。
+3. 在 Vencord 根目錄執行：
+
+   ```shell
+   pnpm build --disable-updater
+   pnpm inject --branch stable
+   ```
+
+4. 重新啟動 Discord，前往 **設定 > Vencord > Plugins** 啟用 **AutoUploadLongMessages**。
+
+解壓後的資料夾結構必須是：
+
+```text
+Vencord/
+└── src/
+    └── userplugins/
+        └── autoUploadLongMessages/
+            └── index.ts
+```
+
+#### Windows 一鍵安裝
+
+下載並雙擊 [`Install.bat`](https://github.com/eric99543/vencord-auto-upload-long-messages/releases/latest/download/Install.bat)。它會下載目前版本的 PowerShell 安裝器、安裝最新插件、重新建置 Vencord、注入 Discord Stable，最後重新啟動 Discord。
+
+如果 Windows 對下載檔案顯示警告，請先查看 [`scripts/Install.bat`](scripts/Install.bat) 原始碼；確認信任內容後再選擇繼續執行。
+
+也可以下載 [`Install.ps1`](https://github.com/eric99543/vencord-auto-upload-long-messages/releases/latest/download/Install.ps1)，並在 PowerShell 執行：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\Install.ps1
+```
+
+安裝器預設將插件複製到 `Documents\Vencord`，以停用官方更新器的方式重新建置 Vencord，注入 Discord Stable 並重新啟動 Discord。
+
+如果 Vencord 位於其他位置：
+
+```powershell
+.\Install.ps1 -VencordPath "D:\Code\Vencord"
+```
+
+### 使用方式
+
+啟用插件後照常傳送超過字數限制的訊息。當 Discord 準備顯示原生 `message.txt` 選項時，插件會自動選擇該流程。
+
+### 更新
+
+下載最新 Release 並重複安裝步驟即可。Windows 安裝器每次執行都會下載目前最新的已發布版本。
+
+### 相容性
+
+此插件會 patch Discord 內部程式碼。Vencord 成功建置不代表目前 Discord 用戶端仍符合 patch；回報問題時，請附上 Discord 與 Vencord 版本。
+
+### 授權
+
+本專案採用 [GPL-3.0-or-later](LICENSE) 授權，與 Vencord 的授權模式一致。
