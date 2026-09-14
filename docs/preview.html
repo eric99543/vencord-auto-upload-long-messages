@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AutoUploadLongMessages preview</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; width: 1200px; height: 675px; overflow: hidden; background: #1e1f22; color: #f2f3f5; font: 16px Arial, sans-serif; letter-spacing: 0; }
+  .app { display: grid; grid-template-columns: 230px 1fr; height: 100%; }
+  aside { background: #2b2d31; padding: 26px 20px; color: #b5bac1; }
+  .brand { color: #fff; font-weight: 700; font-size: 19px; margin-bottom: 36px; }
+  .channel { padding: 10px 12px; margin: 6px 0; border-radius: 6px; }
+  .channel.active { color: #fff; background: #404249; }
+  main { position: relative; background: #313338; padding: 28px 42px; }
+  header { font-weight: 700; padding-bottom: 20px; border-bottom: 1px solid #3f4147; }
+  .message { display: flex; gap: 14px; margin-top: 34px; }
+  .avatar { width: 42px; height: 42px; border-radius: 50%; background: #5865f2; display: grid; place-items: center; font-weight: 700; }
+  .name { font-weight: 700; margin-bottom: 7px; }
+  .text { color: #dbdee1; line-height: 1.5; }
+  .composer { position: absolute; left: 42px; right: 42px; bottom: 30px; height: 58px; border-radius: 8px; background: #383a40; color: #949ba4; padding: 19px; }
+  .modal { position: absolute; inset: 0; background: rgba(0,0,0,.66); display: grid; place-items: center; }
+  .dialog { width: 560px; border-radius: 8px; background: #313338; box-shadow: 0 18px 55px rgba(0,0,0,.55); overflow: hidden; }
+  .dialog-body { padding: 30px; }
+  h1 { margin: 0 0 14px; font-size: 24px; }
+  p { margin: 0; color: #b5bac1; line-height: 1.55; }
+  .file { display: flex; align-items: center; gap: 12px; margin-top: 22px; padding: 14px; background: #2b2d31; border-radius: 6px; }
+  .file-icon { width: 38px; height: 44px; border-radius: 4px; background: #5865f2; display: grid; place-items: center; font-weight: 700; }
+  .dialog-actions { display: flex; justify-content: flex-end; gap: 12px; background: #2b2d31; padding: 18px 24px; }
+  button { height: 40px; padding: 0 18px; border: 0; border-radius: 4px; color: #fff; background: #4e5058; font-weight: 700; }
+  button.primary { background: #5865f2; }
+  .badge { position: absolute; top: 28px; right: 32px; color: #23a55a; font-size: 14px; font-weight: 700; }
+</style>
+<div class="app">
+  <aside><div class="brand">Vencord Preview</div><div class="channel"># general</div><div class="channel active"># long-messages</div><div class="channel"># projects</div></aside>
+  <main>
+    <header># long-messages</header>
+    <div class="badge">AutoUploadLongMessages active</div>
+    <div class="message"><div class="avatar">E</div><div><div class="name">Example User</div><div class="text">A long draft is ready to send without manually copying it into a file.</div></div></div>
+    <div class="composer">Message #long-messages</div>
+    <div class="modal"><div class="dialog"><div class="dialog-body"><h1>Message is too long</h1><p>Discord can upload your message as a text file. AutoUploadLongMessages automatically selects this native flow.</p><div class="file"><div class="file-icon">TXT</div><div><strong>message.txt</strong><br><span style="color:#949ba4">Plain text attachment</span></div></div></div><div class="dialog-actions"><button>Cancel</button><button class="primary">Upload as File</button></div></div></div>
+  </main>
+</div>
+</html>
